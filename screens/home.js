@@ -11,21 +11,19 @@ export default function Home({ navigation }) {
 
 
  function login() {
-    if (!email || !senha) {
-        alert('Preencha email e senha');
-        return;
-    }
+  if (!email || !senha) {
+    alert('Preencha email e senha');
+    return;
+  }
 
-   const auth = getAuth();
-signInWithEmailAndPassword(auth, email, senha)
-.then((userCredential) => {
-// Signed in
-const user = userCredential.user;
-// ...
-})
-.catch((error) => {
-const errorCode = error.code;
-const errorMessage = error.message;
+  const auth = getAuth();
+  signInWithEmailAndPassword(auth, email, senha)
+    .then(() => {
+      navigation.navigate("Cotacoes");
+    })
+    .catch((error) => {
+  console.log(error);
+  alert(error.message);
 });
 }
   
@@ -51,20 +49,14 @@ const errorMessage = error.message;
         value={senha}
         onChangeText={botarSenha}
       />
+      
+      <TouchableOpacity style={styles.botaoAzul} onPress={login}> 
+        <Text style={styles.textoBotao}>Logar</Text>
+      </TouchableOpacity>
 
-      <Button
-        color="#0a62e7"
-        title="                       Logar                      "
-        onPress={login}
-      />
-
-      <Text> </Text>
-
-      <Button
-        color="#e7360a"
-        title="                Cadastrar-se               "
-        onPress={() => navigation.navigate("Cadastrar")}
-      />
+      <TouchableOpacity style={styles.botaoVermelho} onPress={() => navigation.navigate("Cadastrar")}>
+        <Text style={styles.textoBotao}>Cadastrar-se</Text>
+      </TouchableOpacity>
 
       <StatusBar style="auto" />
     </View>
@@ -136,6 +128,30 @@ const styles = StyleSheet.create({
   width: 250,
   textAlign: 'left',
   marginTop: 15
+},
+
+botaoAzul: {
+  width: 240,
+  height: 45,
+  backgroundColor: "#0a62e7",
+  justifyContent: "center",
+  alignItems: "center",
+  marginTop: 10,
+},
+
+botaoVermelho: {
+  width: 240,
+  height: 45,
+  backgroundColor: "#e7360a",
+  justifyContent: "center",
+  alignItems: "center",
+  marginTop: 10,
+},
+
+textoBotao: {
+  color: "#fff",
+  fontSize: 16,
+  fontWeight: "bold",
 },
 
 });
